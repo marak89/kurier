@@ -1,0 +1,40 @@
+3. Specyfikacja techniczna. 
+3.1 - Podzia³ projektu na pliki.
+Ca³a aplikacja zawiera siê w jednym pliku Ÿród³owym. Kod nie zosta³ podzielony na wiêksz¹ liczbê plików, poniewa¿ rozmar aplikacji nie by³ zbyt du¿y.
+Do projektu s¹ do³¹czone dwa kolejne pliki o nazwach miasta.txt oraz odleglosci.txt, które zawieraj¹ odpowiednio nazwy miast w kolejnoœci w jakiej s¹ przypisane im numery ID w systemie,
+ oraz odleg³oœci pomiêdzy poszczególnymi miastami.  pierwsze miasto w pliku miasta.txt ma id 0 w systemie.
+
+3.2 - Jak skompilowaæ projekt?
+Aby poprawnie skompilowaæ projekt wymagany jest kompilator gcc. Projekt zosta³ zbudowany przy wykorzystaniu kompilatora gcc w wersji 6.2.0.
+Do skompilowania projektu u¿ywamy polecenia:
+gcc -Wall -o "main" "main.c" 
+wykonywanego w katalogu z kodem Ÿród³owym.
+
+3.3 Biblioteki
+W projekcie u¿yto standardowych bibliotek jêzyka C.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include<stdlib.h>
+
+
+4. Szczegó³y techniczne.
+Program w pierwszej kolejnoœci liczy iloœæ miast w pliku miasta.txt, i zapisuje tê informacjê w zmiennej iloscMiast.
+Nastêpnie informacje o miastach s¹ wczytywane z pliku do zmiennej tblmiasta która jest zdefiniowania dynamicznie:
+tblmiasta =(char**)malloc(sizeof(char*) * iloscMiast);
+Podczas kopiowania danych do tabeli tblmiasta usuwane s¹ równie¿ znaki koñca wiersza wczytywane z pliku.
+
+Wczytywanie odleg³oœci polega na podobnej zasadzie. Dane te s¹ wczytyuwane do dynamicznej tablicy tblOdleglosci.
+tblOdleglosci = (int *)malloc(iloscMiast * iloscMiast * sizeof(int));
+
+Dane wczytane z pliku s¹ parsowane przy pomocy polecenia strncpy() i zapisywane w tabeli
+ *(tblOdleglosci + miastoZrodloweInt*iloscMiast + miastoDoceloweInt) = odlegloscMiedzyMiastamiInt;
+
+Po wybraniu z menu komendy "k" zostaje uruchomiona funkcja obliczTrase() która pyta nas przez ile miejscowoœci chcemy przejechaæ, a nastêpnie pyta nas o id tych miejscowoœci. 
+Zak³adamy ¿e wyje¿d¿amy z pierwszej miejscowoœci oraz musimy do niej wróciæ. Aplikacja zapisuje pierwsz¹ miejscowoœci w oddzielnej zmiennej, a kolejne miejscowoœci w dynamicznej tablicy. 
+Funkcja mieszaj¹ca zmienia kolejnoœæ miejscowoœci w tablicy, a nastêpnie s¹obiczane odleg³osci pomiêdzy miejscowoœci¹ pocz¹tkow¹ - miejscowosciami w aktualnej kolejnoœci
+ w tablicy oraz miejscowoœci¹ koñcow¹ (pocz¹tkow¹.)
+ Najni¿szy wynik jest zapisywany do zmiennej globalnej najmniejszaIloscKilometrow a tablica która spe³nia te kryteria jest kopiowana do tablicy int * optymalnaDroga;
+ Po wykonaniu wszystkich obliczeñ u¿ytkownikowi prezentowana jest zawartoœæ zmiennych najmniejszaIloscKilometrow oraz optymalnaDroga. Na koniec wyœwietlane jest menu g³ówne aplikacji.
+ 
+ 
